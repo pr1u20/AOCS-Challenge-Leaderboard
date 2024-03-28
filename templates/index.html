@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <!-- Your index page specific content here -->
+    <!-- Authentication and Welcome Messages -->
+    
+    <!-- Include the leaderboard directly or via an include tag -->
+    {% include 'submissions/leaderboard.html' %}
+{% endblock %}
