@@ -7,7 +7,10 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        body { padding-top: 56px; /* Adjusted to ensure body content does not overlap navbar */ }
+        body { padding-top: 56px; /* Adjusted to ensure body content does not overlap navbar */ 
+               font-family: Arial, sans-serif; 
+               background-color: #f0f0f0;
+        }
         .button-link { text-decoration: none; color: inherit; }
     </style>
 </head>
@@ -16,7 +19,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="/">Application Dashboard</a>
+        <a class="navbar-brand" href="/">AOCS Challenge</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -30,17 +33,17 @@
                 </li>
                 {% if not user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/signup">SignUp</a>
+                        <a class="nav-link" href="/signup">Sign Up</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/signin">SignIn</a>
+                        <a class="nav-link" href="/signin">Sign In</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="/submit">Submission</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/signout">SignOut</a>
+                        <a class="nav-link" href="/signout">Sign Out</a>
                     </li>
                 {% endif %}
             </ul>
@@ -58,11 +61,10 @@
 </div>
 {% endfor %}
 
+
 <!-- Main Content Block -->
-<div class="container mt-3">
-    {% block content %}
-    <!-- Content injected here will be specific to each page. -->
-    {% endblock %}
+<div>
+    {% block content %}{% endblock %}
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

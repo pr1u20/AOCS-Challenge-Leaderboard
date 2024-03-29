@@ -3,22 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Sign In</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <style>
+        .container {
+            max-width: 400px;
+            margin-top: 50px;
+        }
+        .btn-link, .btn-link:visited {
+            color: white;
+        }
+        .form-signin {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h3>SignUp</h3>
-    <form action="/signin" method="post">
-    {% csrf_token %}
-        <label for="">Username</label>
-        <input type="text" name="username" placeholder="Username" required>
-        <br>
-        <label for="">Password</label>
-        <input type="password" name="password" placeholder="Password" required>
-        <br>
-        <button type="submit">Sign In</button>
-    </form>
 
-    <button type="submit"><a href="/signup">SignIn</a></button>
+<div class="container">
+    <h3 class="mb-3">Sign In</h3>   
+    <form action="/signin" method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" name="username" placeholder="Username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Password" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+    </form>
+    <div class="form-signin">
+        <button class="btn btn-secondary btn-block"><a href="/signup" class="btn-link">Sign Up</a></button>
+    </div>
+
+    <div class="form-signin">
+        <a href="/" class="btn btn-secondary btn-block">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+    </div>
     
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

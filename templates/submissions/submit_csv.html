@@ -1,5 +1,127 @@
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Upload</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submission Portal</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-control {
+            margin-bottom: 0.5rem;
+        }
+        .submission {
+            max-width: 400px;
+            margin-top: 50px;
+        }
+
+    </style>
+</head>
+<body>
+    {% extends "base.html" %}
+
+    {% block title %}Home{% endblock %}
+
+    {% block content %}
+        <div class="container my-5">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <!-- Submission Portal Heading and Instructions -->
+                    <div class="mb-4">
+                        <h2>Submission Portal</h2>
+                        <p>Please fill out the form below to submit your CSV file.</p>
+                    </div>
+        
+                    <!-- Description Section -->
+                    <div class="mb-4">
+                        <h3>Description</h3>
+                        <p>This competition requires participants to submit their data in CSV format. Submissions must be formatted according to the specified structure to facilitate accurate analysis. See the table below for column details and example values:</p>
+                        
+                        <!-- Table for Columns and Example Values -->
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>F1</th>
+                                        <th>F2</th>
+                                        <th>γ1</th>
+                                        <th>γ2</th>
+                                        <th>δ1</th>
+                                        <th>δ2</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>16</td>
+                                        <td>-16</td>
+                                    </tr>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>1</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>3</td>
+                                        <td>-10</td>
+                                    </tr>
+                                    <tr>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                    </tr>
+                                    <!-- Additional rows of example data could be added here -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>The number of rows should match the number of timesteps, which is 100 seconds multiplied by 24Hz (2400 rows). Each row represents a timestep with the respective values for each variable.</p>
+                        
+                        <p>An <a href="your_example_submission_link_here">example submission</a> can be found here. Use it as a guide to ensure your submission is formatted correctly.</p>
+                        
+                        <p>Ensure your data is formatted correctly and adheres to the submission guidelines provided to facilitate accurate analysis and fair competition.</p>
+                    </div>
+
+
+        
+                    <!-- Rules Section -->
+                    <div>
+                        <h3>Rules</h3>
+                        <ul>
+                            <li>Each participant can submit up to 3 entries per day.</li>
+                            <li>Submissions must be in CSV format and should not exceed 5MB in size.</li>
+                            <li>Data should be anonymized to protect personal information.</li>
+                            <li>The decision of the judging panel is final.</li>
+                            <!-- Add more rules as necessary -->
+                        </ul>
+                    </div>
+                    <!-- Form for File Submission -->
+                    <h3>Submit</h3>
+                    <form method="post" enctype="multipart/form-data" class="mb-5">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ form.as_p }}
+                            <small class="form-text text-muted">Upload the CSV file containing your data.</small>
+                        </div>
+                        <!-- Additional form fields can be manually rendered here -->
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    {% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

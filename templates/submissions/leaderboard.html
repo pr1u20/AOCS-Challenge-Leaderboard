@@ -5,17 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaderboard</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-        }
+
         table {
             border-collapse: collapse;
-            width: 80%;
+            width: 100%;
             margin-top: 50px;
         }
         th, td {
@@ -28,14 +21,19 @@
             color: white;
         }
         tr:hover {background-color: #f5f5f5;}
-        .container {
-            width: 90%;
-            margin-top: 20px;
+        .leaderboard {
+            width: 100%;
+            margin-top: 50px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    {% extends "base.html" %}
+
+    {% block title %}Home{% endblock %}
+
+    {% block content %}
+    <div class="leaderboard container">
         <h2>Leaderboard</h2>
         <table>
             <thead>
@@ -58,6 +56,8 @@
             </tbody>
         </table>
     </div>
+
+    {% endblock %}
 </body>
 </html>
 

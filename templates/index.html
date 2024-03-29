@@ -5,7 +5,138 @@
 {% block content %}
     <!-- Your index page specific content here -->
     <!-- Authentication and Welcome Messages -->
-    
+
+    <!-- Timeline for Competition -->
+    <div class="container text-center">
+        <div id="competition-timeline" class="my-3">
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Time Left Until Competition Ends:</h4>
+                <p id="time-left">Calculating...</p>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- JavaScript to calculate and display the time left -->
+    <script>
+        function updateTimeLeft() {
+            const endDate = new Date("June 25, 2024 23:59:59").getTime();
+            const now = new Date().getTime();
+            const timeLeft = endDate - now;
+
+            // Calculating days, hours, minutes and seconds left
+            let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            // Displaying the time left
+            document.getElementById("time-left").innerHTML = days + "d " + hours + "h "
+            + minutes + "m ";
+
+            // When the countdown is over, display a message
+            if (timeLeft < 0) {
+                clearInterval(interval);
+                document.getElementById("time-left").innerHTML = "The competition has ended!";
+            }
+        }
+
+        // Update the countdown every 1 second
+        let interval = setInterval(updateTimeLeft, 1000);
+    </script>
+        
     <!-- Include the leaderboard directly or via an include tag -->
-    {% include 'submissions/leaderboard.html' %}
+
+    <!-- Competition Description Section -->
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col">
+                <!-- Home Section -->
+                <section id="home" class="mb-5">
+                    <h3 class="mb-4">Home</h3>
+                    <p>The ESA Academy Experiments Programme enables university teams to design, develop, and operate experiments across various gravity-related platforms and space. The latest cycle introduced new platforms, including ESA’s Space Rider and the ESA Orbital Robotics Lab, attracting high-quality proposals from across Europe.</p>
+                    <div class="left mb-3">
+                        <a href="https://www.esa.int/Education/ESA_Academy_Experiments_programme/Seven_new_teams_selected_for_the_ESA_Academy_Experiments_Programme" target="_blank" class="btn btn-primary">Learn more</a>
+                    </div>
+                    <div class="mb-3 d-flex justify-content-center">
+                        <img src="media/ORL.png" alt="ORL" class="img-fluid" style="max-width: 50%;">
+                    </div>
+                    <p>Team COCO from the University of Southampton is set to test a novel Attitude and Orbit Control System (AOCS) at the ESA Orbital Robotics Lab. The challenge involves designing control algorithms for a two-dimensional microgravity analog environment, simulating conditions for spacecraft motion control. The innovative AOCS aims to optimize spacecraft design by reducing the number of required thrusters, leveraging thrust-vectoring technology.</p>
+                    <div class="mb-3 d-flex justify-content-center">
+                        <img src="media/team.jpg" alt="Team COCO" class="img-fluid" style="max-width: 50%;">
+                    </div>
+                </section>
+
+                <!-- Challenge Section -->
+                <section id="challenge" class="mt-5 mb-5">
+                    <h3 class="mb-4">Challenge</h3>
+                    <p>A digital twin of the Orbital Robotics Lab (ORL) and our platform has been made publicly available, offering teams of students a unique opportunity to compete in designing the best control algorithms. The primary goal of this competition is to navigate from the origin of the table to the position (2,2) while optimizing for three critical factors:</p>
+                    <ul>
+                        <li><strong>Minimum Time:</strong> Completing the task in the shortest possible time.</li>
+                        <li><strong>Least Error:</strong> Achieving the target position with minimal deviation.</li>
+                        <li><strong>Lowest Fuel Consumption:</strong> Utilizing the least amount of fuel to accomplish the mission objectives.</li>
+                    </ul>
+                    <div class="mb-3 d-flex justify-content-center">
+                        <img src="media/digital-twin.jpg" alt="Digital Twin of ORL" class="img-fluid" style="max-width: 50%;">
+                    </div>
+                    <p>Participants will face several key challenges in their quest for precision and efficiency:</p>
+                    <ul>
+                        <li><strong>Gimbal Thruster Delay:</strong> A notable delay exists in moving the gimbal thrusters, requiring careful consideration in control algorithm timing.</li>
+                        <li><strong>Sensor Noise:</strong> Variability and noise in sensor readings can impact accuracy and require robust filtering and data processing strategies.</li>
+                        <li><strong>Table Disturbances:</strong> Unpredictable disturbances in the table environment can affect the platform's stability and trajectory.</li>
+                        <li><strong>Degrees of Freedom (DoF) Control:</strong> Controlling more than one degree of freedom simultaneously poses a significant challenge – or does it? Teams are encouraged to explore innovative solutions to this problem.</li>
+                    </ul>
+                    <p>This challenge tests the participants' abilities in precision control, efficient planning, and resource management, reflecting real-world constraints faced by space missions. Teams must harness their skills in algorithm design and control theory to succeed in this competitive environment.</p>
+                    <p>More details and participation instructions can be found on GitHub.</p>
+                    <div class="left mb-3">
+                        <a href="https://github.com/pr1u20/satellite-simulation" target="_blank" class="btn btn-primary">Participation Details</a>
+                    </div>
+                </section>
+
+                <!-- Scoring Section -->
+                <section id="scoring" class="mt-5 mb-5">
+                    <h3 class="mb-4">Scoring</h3>
+                    <p>Scoring will be based on the efficiency of fuel use and the time taken to reach the designated target. The core objective is to demonstrate control accuracy while minimizing resource consumption.</p>
+                    <p>Teams must aim for the lowest score, calculated as follows:</p>
+                    <div class="math-equation bg-light p-3 rounded">
+                        <p><strong>Score = Σ|Error<sub>x</sub>| + Σ|Error<sub>y</sub>| + Σ|Error<sub>z</sub>| + Fuel_Consumed</strong></p>
+                    </div>
+                    <p>Where:</p>
+                    <ul>
+                        <li><strong>Σ|Error<sub>x</sub>|</strong> and <strong>Σ|Error<sub>y</sub>|</strong> are the summations of the absolute errors in the x and y positions, respectively.</li>
+                        <li><strong>Σ|Error<sub>z</sub>|</strong> is the summation of the absolute error in the z-angle.</li>
+                        <li><strong>Fuel_Consumed</strong> represents the total fuel used during the maneuver.</li>
+                    </ul>
+                    <p>The goal is to minimize this score by accurately controlling the platform's movement with minimal fuel consumption.</p>
+                    <div class="left mb-3">
+                        <a href="https://github.com/pr1u20/satellite-simulation" target="_blank" class="btn btn-primary">Scoring Details</a>
+                    </div>
+                </section>
+
+                <style>
+                    .math-equation p {
+                        font-family: "Courier New", Courier, monospace; /* Gives the math part a distinct look */
+                        color: #333;
+                    }
+                    .bg-light {
+                        background-color: #f8f9fa!important; /* Bootstrap background color */
+                    }
+                    .rounded {
+                        border-radius: 0.25rem!important; /* Bootstrap border radius */
+                    }
+                </style>
+
+
+                <!-- Prize Section -->
+                <section id="prize" class="mt-5">
+                    <h3 class="mb-4">Prize</h3>
+                    <p>The prize for the winning team is the opportunity to test their winning algorithm on the Orbital Robotics Lab (ORL) table at ESA ESTEC. This test campaign, scheduled for July 2024, will provide the victorious participants with hands-on experience in one of the most advanced space simulation facilities in Europe. It's a rare chance to contribute directly to the field of space exploration and robotics, witnessing firsthand the impact of their innovation on the future of space technology.</p>
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    
 {% endblock %}
