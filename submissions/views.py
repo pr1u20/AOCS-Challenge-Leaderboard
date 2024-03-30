@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 import pickle
 from django.conf import settings
 from pyaocs.simulation import digital_twin
+from pyaocs import parameters as param
 from pyaocs.control.example import SimpleTestControl
 import numpy as np
 import sys
@@ -26,6 +27,19 @@ def submit_pickle(request):
         form = SubmissionForm()
     return render(request, 'submissions/submit_csv.html', {'form': form})
 
+def scoring(env):
+    position_error = np.mean(np.abs((np.array(env.actual_positions) - np.array(env.target_positions))))
+    orientation_error = 0
+    firing_time = np.sum(env.F1s) * 1 / param.sample_rate
+
+    score = 400*position_error + orientation_error + firing_time
+
+    print(f"Position error: {position_error} m")
+    print(f"Firing time: {firing_time} s")
+    print(f"Score: {score}")
+
+    return score
+
 def run_strategy_and_calculate_score(strategy_instance):
 
     env, _, _ = digital_twin.run(strategy_instance,
@@ -36,7 +50,7 @@ def run_strategy_and_calculate_score(strategy_instance):
                                  plot=False)
     
     # Calculate the score based on the environment state
-    score = np.mean(np.abs(np.array(env.actual_positions) - np.array(env.target_positions)))
+    score = scoring(env)
 
     return score
 
