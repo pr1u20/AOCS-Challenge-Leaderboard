@@ -97,7 +97,13 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 if not DEBUG:
-    DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}
+    DATABASES = {
+    'default': dj_database_url.config(
+        # Replace this value with your local database's connection string.
+        default='postgres://dbname:c542QIHS8NmaCe2ihYgKg08g8XoCs67l@dpg-co44bpcf7o1s738obsrg-a/dbname_6izc',
+        conn_max_age=600
+    )
+}
 else:
     DATABASES = {
         'default': {
