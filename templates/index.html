@@ -56,15 +56,12 @@
                 <section id="home" class="mb-5">
                     <h3 class="mb-4">Home</h3>
                     <p>The ESA Academy Experiments Programme enables university teams to design, develop, and operate experiments across various gravity-related platforms and space. The latest cycle introduced new platforms, including ESA’s Space Rider and the ESA Orbital Robotics Lab, attracting high-quality proposals from across Europe.</p>
-                    <div class="left mb-3">
-                        <a href="https://www.esa.int/Education/ESA_Academy_Experiments_programme/Seven_new_teams_selected_for_the_ESA_Academy_Experiments_Programme" target="_blank" class="btn btn-primary">Learn more</a>
-                    </div>
                     <div class="mb-3 d-flex justify-content-center">
                         <img src="media/ORL.png" alt="ORL" class="img-fluid" style="max-width: 50%;">
                     </div>
                     <p>Team COCO from the University of Southampton is set to test a novel Attitude and Orbit Control System (AOCS) at the ESA Orbital Robotics Lab. The challenge involves designing control algorithms for a two-dimensional microgravity analog environment, simulating conditions for spacecraft motion control. The innovative AOCS aims to optimize spacecraft design by reducing the number of required thrusters, leveraging thrust-vectoring technology.</p>
-                    <div class="mb-3 d-flex justify-content-center">
-                        <img src="media/team.jpg" alt="Team COCO" class="img-fluid" style="max-width: 50%;">
+                    <div class="left mb-3">
+                        <a href="https://www.esa.int/Education/ESA_Academy_Experiments_programme/Seven_new_teams_selected_for_the_ESA_Academy_Experiments_Programme" target="_blank" class="btn btn-primary">Learn more</a>
                     </div>
                 </section>
 
@@ -99,15 +96,19 @@
                     <h3 class="mb-4">Scoring</h3>
                     <p>Scoring will be based on the efficiency of fuel use and the time taken to reach the designated target. The core objective is to demonstrate control accuracy while minimizing resource consumption.</p>
                     <p>Teams must aim for the lowest score, calculated as follows:</p>
-                    <div class="math-equation bg-light p-3 rounded">
-                        <p><strong>Score = Σ|Error<sub>x</sub>| + Σ|Error<sub>y</sub>| + Σ|Error<sub>z</sub>| + Fuel_Consumed</strong></p>
-                    </div>
-                    <p>Where:</p>
-                    <ul>
-                        <li><strong>Σ|Error<sub>x</sub>|</strong> and <strong>Σ|Error<sub>y</sub>|</strong> are the summations of the absolute errors in the x and y positions, respectively.</li>
-                        <li><strong>Σ|Error<sub>z</sub>|</strong> is the summation of the absolute error in the z-angle.</li>
-                        <li><strong>Fuel_Consumed</strong> represents the total fuel used during the maneuver.</li>
-                    </ul>
+                    <p>
+                    <strong>Score Calculation:</strong> 
+                    <span>$$\text{Score} = 400 \times \text{Position Error} + \text{Firing Time}$$</span>
+                    </p>
+                    <p>
+                    <strong>Position Error:</strong> 
+                    <span>$$\text{Position Error} = \frac{1}{N} \sum_{i=1}^{N} \left| \text{actual_position}_i - \text{target_position}_i \right|$$</span>
+                    </p>
+                    <p>
+                    <strong>Firing Time:</strong> 
+                    <span>$$\text{Firing Time} = \left( \sum_{i=1}^{N} \text{F1}_i \right) \times \frac{1}{\text{sample_rate}}$$</span>
+                    </p>
+            
                     <p>The goal is to minimize this score by accurately controlling the platform's movement with minimal fuel consumption.</p>
                     <div class="left mb-3">
                         <a href="https://github.com/pr1u20/AOCS-Challenge" target="_blank" class="btn btn-primary">Scoring Details</a>
