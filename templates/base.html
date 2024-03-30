@@ -19,37 +19,59 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="/">AOCS Challenge</a>
+        <a class="navbar-brand" href="/">
+            <img src="/media/patch.png" alt="Logo" style="height: 30px; margin-right: 10px;">AOCS Challenge
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
+                <li class="nav-item" style="margin-right: 20px;">
+                    <a class="nav-link text-white custom-hover" href="/">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/leaderboard">Leaderboard</a>
+                <li class="nav-item" style="margin-right: 20px;">
+                    <a class="nav-link text-white custom-hover" href="/leaderboard">Leaderboard</a>
                 </li>
                 {% if not user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="/signup">Sign Up</a>
+                    <li class="nav-item" style="margin-right: 8px;">
+                        <a class="btn btn-success btn-sm nav-link text-white" href="/signup">Sign Up</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/signin">Sign In</a>
+                        <a class="btn btn-outline-light btn-sm nav-link custom-signin text-white" href="/signin">Sign In</a>
                     </li>
                 {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="/submit">Submission</a>
+                    <li class="nav-item" style="margin-right: 20px;">
+                        <a class="nav-link text-white custom-hover" href="/submit">Submission</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/signout">Sign Out</a>
+                        <a class="btn btn-warning btn-sm nav-link text-dark" href="/signout">Sign Out</a>
                     </li>
                 {% endif %}
             </ul>
         </div>
     </div>
 </nav>
+
+<!-- Custom CSS for Navigation Button Hover and Increased Separation -->
+<style>
+    .custom-signin:hover {
+        color: #007bff !important; /* Adjusting the hover color for better visibility */
+        background-color: white !important;
+    }
+
+    .custom-hover:hover {
+        color: #7ca886 !important; /* Adjusting the hover color for better visibility */
+    }
+    
+    .nav-item:not(:last-child) {
+        margin-right: 15px; /* Adds more space between navigation items */
+    }
+</style>
+
+
+
+
 
 <!-- Alerts & Messages -->
 {% for message in messages %}
