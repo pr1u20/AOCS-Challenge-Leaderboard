@@ -41,7 +41,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = 'django-insecure-!8f90pbvcj-ex7ev6h#i=tj(*rn++vrun_9oh6y)xwvm=yb!s+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['aocs-challenge-leaderboard.onrender.com',
                  ".awsapprunner.com",
@@ -98,12 +98,12 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 if not DEBUG:
     DATABASES = {
-    'default': dj_database_url.config(
-        # Replace this value with your local database's connection string.
-        default='postgres://dbname:c542QIHS8NmaCe2ihYgKg08g8XoCs67l@dpg-co44bpcf7o1s738obsrg-a/dbname_6izc',
-        conn_max_age=600
-    )
-}
+        'default': dj_database_url.config(
+            # Replace this value with your local database's connection string.
+            default='postgres://dbname:c542QIHS8NmaCe2ihYgKg08g8XoCs67l@dpg-co44bpcf7o1s738obsrg-a/dbname_6izc',
+            conn_max_age=600
+        )
+    }
 else:
     DATABASES = {
         'default': {
