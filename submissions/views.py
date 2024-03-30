@@ -1,27 +1,24 @@
 from django.shortcuts import render, redirect
 from .forms import SubmissionForm
 from .models import Submission
-import os
 from django.contrib.auth.decorators import login_required
-from django.db.models import Max, Q
 from django.contrib.auth.models import User
-import pickle
 from django.conf import settings
 from pyaocs.simulation import digital_twin
 from pyaocs import parameters as param
-from pyaocs.control.example import SimpleTestControl
 import numpy as np
-import sys
-
-sys.modules['__main__'].SimpleTestControl = SimpleTestControl
+import cloudpickle
 
 @login_required
 def submit_pickle(request):
     if request.method == 'POST':
         form = SubmissionForm(request.POST, request.FILES)
         if form.is_valid():
-            score = process_pickle_file(request.FILES['file'])
-            Submission.objects.create(user=request.user, score=score)
+            scores = process_pickle_file(request.FILES['file'])
+            Submission.objects.create(user=request.user, 
+                                      score_ideal=round(scores[0], 2),
+                                      score_disturbances=round(scores[1], 2),
+                                      score_noise=round(scores[2], 2))
             return redirect('leaderboard')  # Redirect to the leaderboard view
     else:
         form = SubmissionForm()
@@ -30,7 +27,7 @@ def submit_pickle(request):
 def scoring(env):
     position_error = np.mean(np.abs((np.array(env.actual_positions) - np.array(env.target_positions))))
     orientation_error = 0
-    firing_time = np.sum(env.F1s) * 1 / param.sample_rate
+    firing_time = np.sum(np.array(env.F1s)) * 1 / param.sample_rate
 
     score = 400*position_error + orientation_error + firing_time
 
@@ -38,9 +35,11 @@ def scoring(env):
     print(f"Firing time: {firing_time} s")
     print(f"Score: {score}")
 
-    return score
+    return [score, score, score]
 
 def run_strategy_and_calculate_score(strategy_instance):
+
+    print(strategy_instance)
 
     env, _, _ = digital_twin.run(strategy_instance,
                                  render = False,
@@ -60,16 +59,13 @@ def process_pickle_file(uploaded_file):
     # Load the pickle data from an in-memory file
     try:
         # Read the file into memory, and then use pickle.loads() to deserialize it.
-        uploaded_file.seek(0)  # Move the file pointer to the start of the file
-        file_content = uploaded_file.read()
-        strategy_instance = pickle.loads(file_content)
-        #strategy_instance = pickle.loads(pickle_data)
+        strategy_instance = cloudpickle.loads(uploaded_file.read())
 
         # Ensure execution of the strategy is done securely!
         score = run_strategy_and_calculate_score(strategy_instance)
 
         return score
-    except (pickle.UnpicklingError, AttributeError, EOFError, ImportError, IndexError) as e:
+    except (AttributeError, EOFError, ImportError, IndexError) as e:
         # Handle the exception for invalid pickle data
         return f"Error loading pickle file: {e}"
     except Exception as e:
@@ -84,12 +80,12 @@ def get_leaderboard():
 
     for user in users_with_submissions:
         # For each user, find their highest-scoring submission
-        best_submission = user.submission_set.order_by('score', 'submission_time').first()
+        best_submission = user.submission_set.order_by('score_ideal', 'submission_time').first()
         if best_submission:
             leaderboard_submissions.append(best_submission)
 
     # Sort the submissions by score and submission time
-    leaderboard_submissions.sort(key=lambda x: (x.score, x.submission_time))
+    leaderboard_submissions.sort(key=lambda x: (x.score_ideal, x.submission_time))
 
     return leaderboard_submissions
 

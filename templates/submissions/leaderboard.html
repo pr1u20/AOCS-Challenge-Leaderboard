@@ -10,8 +10,11 @@
                 <tr>
                     <th>Rank</th>
                     <th>User</th>
-                    <th>Score</th>
-                    <th>Submission Time</th>
+                    <th>Score Ideal</th>
+                    <th>Score Disturbances</th>
+                    <th>Score Noise</th>
+                    <th>Best Submission</th>
+                    <th>Last Submission</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,7 +22,9 @@
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td>{{ submission.user.username }}</td>
-                    <td>{{ submission.score }}</td>
+                    <td>{{ submission.score_ideal }}</td>
+                    <td>{{ submission.score_disturbances }}</td>
+                    <td>{{ submission.score_noise }}</td>
                     <td>{{ submission.submission_time }}</td>
                 </tr>
                 {% endfor %}

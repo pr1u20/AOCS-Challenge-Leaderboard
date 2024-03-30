@@ -2,3 +2,4 @@ Django
 gunicorn
 whitenoise==6.4.0
 pyaocs
+cloudpickle
