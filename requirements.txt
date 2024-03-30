@@ -1,5 +1,8 @@
 Django
 gunicorn
-whitenoise==6.4.0
+whitenoise
 pyaocs
 cloudpickle
+psycopg2-binary
+dj-database-url
+uvicorn
