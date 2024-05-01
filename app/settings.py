@@ -95,7 +95,10 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-user = os.getlogin() 
+try:
+    user = os.getlogin() 
+except:
+    user = 'onrender'
 
 if user != 'Pedro':
     DATABASES = {
