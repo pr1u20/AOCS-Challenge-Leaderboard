@@ -16,10 +16,9 @@ import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 STATIC_URL = "static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#STATIC_ROOT = BASE_DIR / "staticfiles"
 
 STORAGES = {
     "default": {
@@ -41,7 +40,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = 'django-insecure-!8f90pbvcj-ex7ev6h#i=tj(*rn++vrun_9oh6y)xwvm=yb!s+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['aocs-challenge-leaderboard.onrender.com',
                  ".awsapprunner.com",
