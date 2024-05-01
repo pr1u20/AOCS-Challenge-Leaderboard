@@ -32,76 +32,30 @@
                     <!-- Submission Portal Heading and Instructions -->
                     <div class="mb-4">
                         <h2>Submission Portal</h2>
-                        <p>Please fill out the form below to submit your CSV file.</p>
+                        <p>Please fill out the form below to submit your Pickle object.</p>
                     </div>
         
                     <!-- Description Section -->
                     <div class="mb-4">
                         <h3>Description</h3>
-                        <p>This competition requires participants to submit their data in CSV format. Submissions must be formatted according to the specified structure to facilitate accurate analysis. See the table below for column details and example values:</p>
-                        
-                        <!-- Table for Columns and Example Values -->
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>F1</th>
-                                        <th>F2</th>
-                                        <th>γ1</th>
-                                        <th>γ2</th>
-                                        <th>δ1</th>
-                                        <th>δ2</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>16</td>
-                                        <td>-16</td>
-                                    </tr>
-                                    <tr>
-                                        <td>0</td>
-                                        <td>1</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>3</td>
-                                        <td>-10</td>
-                                    </tr>
-                                    <tr>
-                                        <td>...</td>
-                                        <td>...</td>
-                                        <td>...</td>
-                                        <td>...</td>
-                                        <td>...</td>
-                                        <td>...</td>
-                                    </tr>
-                                    <!-- Additional rows of example data could be added here -->
-                                </tbody>
-                            </table>
-                        </div>
 
-                        <p>The number of rows should match the number of timesteps, which is 100 seconds multiplied by 24Hz (2400 rows). Each row represents a timestep with the respective values for each variable.</p>
-                        
-                        <p>An <a href="your_example_submission_link_here">example submission</a> can be found here. Use it as a guide to ensure your submission is formatted correctly.</p>
-                        
-                        <p>Ensure your data is formatted correctly and adheres to the submission guidelines provided to facilitate accurate analysis and fair competition.</p>
+                        <p>Once the controller is developed, it can be saved as a pickle object.
+                            An <a href="https://github.com/pr1u20/AOCS-Challenge/blob/main/example_submission.ipynb">example submission</a> can be found here. Use it as a guide to ensure your submission is formatted correctly.</p>
                     </div>
 
 
         
                     <!-- Rules Section -->
                     <div>
-                        <h3>Rules</h3>
+                        <h3>Requirements</h3>
+                        <p>Failure to meet all requiremnts may cause the submission portal to raise an error.</p>
                         <ul>
-                            <li>Each participant can submit up to 3 entries per day.</li>
-                            <li>Submissions must be in CSV format and should not exceed 5MB in size.</li>
-                            <li>Data should be anonymized to protect personal information.</li>
-                            <li>The decision of the judging panel is final.</li>
+                            <li>Use Python version 3.11.</li>
+                            <li>Use the package versions specified <a href="https://github.com/pr1u20/AOCS-Challenge/blob/main/requirements.txt">here</a>. The pickle object needs to be loaded and tested in the web server, so failure to comply with specific versions may result in failure to load the pickle obeject. The fewer the external packages used the lower the likelihood of getting submission errors. If you require some specific version of a package like tensorflow==X, please email <a href="pr1u20@soton.ac.uk">pr1u20@soton.ac.uk</a>. We will install it within the web server.</li>
                             <!-- Add more rules as necessary -->
                         </ul>
+                        <p>If you get any error or have any questions please raise an issue in <a href="https://github.com/pr1u20/AOCS-Challenge/blob/main/">github</a> or contact <a href="pr1u20@soton.ac.uk">pr1u20@soton.ac.uk</a></p>
+
                     </div>
                     <!-- Form for File Submission -->
                     <h3>Submit</h3>
@@ -109,7 +63,7 @@
                         {% csrf_token %}
                         <div class="form-group">
                             {{ form.as_p }}
-                            <small class="form-text text-muted">Upload the CSV file containing your data.</small>
+                            <small class="form-text text-muted">Upload the .pkl obejct containing your controller class.</small>
                         </div>
                         <!-- Additional form fields can be manually rendered here -->
                         <button type="submit" class="btn btn-primary">Upload</button>
