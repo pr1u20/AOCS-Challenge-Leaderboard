@@ -35,7 +35,7 @@ def scoring(env):
     print(f"Firing time: {firing_time} s")
     print(f"Score: {score}")
 
-    return [score, score, score]
+    return score
 
 def run_strategy_and_calculate_score(strategy_instance):
 
@@ -49,9 +49,29 @@ def run_strategy_and_calculate_score(strategy_instance):
                                  plot=False)
     
     # Calculate the score based on the environment state
-    score = scoring(env)
+    score_ideal = scoring(env)
 
-    return score
+    env, _, _ = digital_twin.run(strategy_instance,
+                                 render = False,
+                                 real_time=False,
+                                 use_disturbances=True,
+                                 noise=False,
+                                 plot=False)
+    
+    # Calculate the score based on the environment state
+    score_disturbances = scoring(env)
+
+    env, _, _ = digital_twin.run(strategy_instance,
+                                 render = False,
+                                 real_time=False,
+                                 use_disturbances=True,
+                                 noise=True,
+                                 plot=False)
+    
+    # Calculate the score based on the environment state
+    score_noise = scoring(env)
+
+    return [score_ideal, score_disturbances, score_noise]
 
 def process_pickle_file(uploaded_file):
     # Optionally: validate the file's authenticity/contents as much as possible here
@@ -74,6 +94,7 @@ def process_pickle_file(uploaded_file):
 
 def get_leaderboard():
     leaderboard_submissions = []
+    users = User.objects.all()
 
     # Get all users who have at least one submission
     users_with_submissions = User.objects.filter(submission__isnull=False).distinct()
@@ -81,11 +102,25 @@ def get_leaderboard():
     for user in users_with_submissions:
         # For each user, find their highest-scoring submission
         best_submission = user.submission_set.order_by('score_ideal', 'submission_time').first()
+
+        # Find the latest submission by submission time
+        latest_submission = user.submission_set.order_by('-submission_time').first()
+
         if best_submission:
-            leaderboard_submissions.append(best_submission)
+            
+            leaderboard_submissions.append({
+                'user': user,
+                'score_ideal': best_submission.score_ideal,
+                'score_disturbances': best_submission.score_disturbances,
+                'score_noise': best_submission.score_noise,
+                'submission_time': best_submission.submission_time,
+                'latest_submission_time': latest_submission.submission_time
+            })
+            
 
     # Sort the submissions by score and submission time
-    leaderboard_submissions.sort(key=lambda x: (x.score_ideal, x.submission_time))
+    #leaderboard_submissions.sort(key=lambda x: (x.score_ideal, x.submission_time))
+    leaderboard_submissions.sort(key=lambda x: (x['score_ideal'], x['latest_submission_time']))
 
     return leaderboard_submissions
 
