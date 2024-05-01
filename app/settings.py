@@ -40,7 +40,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = 'django-insecure-!8f90pbvcj-ex7ev6h#i=tj(*rn++vrun_9oh6y)xwvm=yb!s+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['aocs-challenge-leaderboard.onrender.com',
                  ".awsapprunner.com",
@@ -95,7 +95,9 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-if not DEBUG:
+user = os.getlogin() 
+
+if user != 'Pedro':
     DATABASES = {
         'default': dj_database_url.config(
             # Replace this value with your local database's connection string.
