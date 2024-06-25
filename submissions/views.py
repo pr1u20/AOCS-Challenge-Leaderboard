@@ -27,7 +27,7 @@ def submit_pickle(request):
 def scoring(env):
     position_error = np.mean(np.abs((np.array(env.actual_positions) - np.array(env.target_positions))))
     orientation_error = 0
-    firing_time = np.sum(np.array(env.F1s)) * 1 / param.sample_rate
+    firing_time = np.sum(np.array(env.F1s) / param.F) / param.fps
 
     score = 400*position_error + orientation_error + firing_time
 
